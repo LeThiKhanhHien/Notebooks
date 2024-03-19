@@ -19,3 +19,10 @@ The dataset is downloaded from [kaggle](https://www.kaggle.com/datasets/mlg-ulb/
 The dataset comprises credit card transactions made by European cardholders in September 2013. Within a span of two days, there were 492 fraudulent transactions out of a total of 284,807 transactions. This dataset is characterized by significant imbalance, with the positive class (frauds) representing only 0.172% of all transactions.
 
 The dataset includes solely numerical input variables resulting from a PCA transformation. Due to confidentiality constraints, the original features or additional background information about the data are not provided. Principal component analysis (PCA) was applied to derive features V1 through V28; however, features 'Time' and 'Amount' were not subjected to PCA transformation. 'Time' denotes the elapsed seconds between each transaction and the first recorded transaction in the dataset, while 'Amount' represents the transaction amount. The 'Class' feature serves as the response variable, taking a value of 1 in cases of fraud and 0 otherwise.
+
+## Data preparation and observation ## 
+
+1. The data has the shape (284807, 31); there are 29 feature columns.
+2. There are no nan values in the data
+3. The dataset is imbalanced
+   ![image](https://github.com/LeThiKhanhHien/Notebooks/assets/56401620/43902dd9-f987-4ef2-9977-663b6fa97761)
