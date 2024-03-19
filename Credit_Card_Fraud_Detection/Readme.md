@@ -66,24 +66,6 @@ pvalues.reset_index(inplace=True)
 pvalues.rename(columns={0: "pvalue", "index": "feature"}, inplace=True)
 pvalues.style.background_gradient(cmap='RdYlGn')
 ```
-<style type="text/css">
-#T_20da2_row0_col1, #T_20da2_row1_col1, #T_20da2_row2_col1, #T_20da2_row3_col1, #T_20da2_row4_col1, #T_20da2_row5_col1, #T_20da2_row6_col1, #T_20da2_row7_col1, #T_20da2_row8_col1, #T_20da2_row9_col1, #T_20da2_row10_col1, #T_20da2_row11_col1, #T_20da2_row12_col1, #T_20da2_row13_col1, #T_20da2_row15_col1, #T_20da2_row16_col1, #T_20da2_row17_col1, #T_20da2_row18_col1, #T_20da2_row20_col1, #T_20da2_row23_col1, #T_20da2_row24_col1, #T_20da2_row25_col1, #T_20da2_row26_col1, #T_20da2_row27_col1, #T_20da2_row28_col1 {
-  background-color: #a50026;
-  color: #f1f1f1;
-}
-#T_20da2_row14_col1 {
-  background-color: #ab0626;
-  color: #f1f1f1;
-}
-#T_20da2_row19_col1, #T_20da2_row21_col1 {
-  background-color: #c01a27;
-  color: #f1f1f1;
-}
-#T_20da2_row22_col1 {
-  background-color: #006837;
-  color: #f1f1f1;
-}
-</style>
 <table id="T_20da2">
   <thead>
     <tr>
@@ -241,5 +223,146 @@ pvalues.style.background_gradient(cmap='RdYlGn')
   </tbody>
 </table>
 
+Tree-based models such as Decision Trees, Random Forests, and Gradient Boosting Machines can provide feature importance scores. These scores represent the relative importance of each feature in the model's decision-making process. Features with higher importance scores are considered more significant in predicting the target variable. Let us try DecisionTreeClassifier from scikit-learn to train a decision tree model and then extract feature importances from it. 
+
+```python
+from sklearn.tree import DecisionTreeClassifier
+# Initialize DecisionTreeClassifier
+dt_classifier = DecisionTreeClassifier()
+
+# Fit the model
+dt_classifier.fit(X_scaled, y)
+
+# Get feature importances
+feature_importances = dt_classifier.feature_importances_
+feature_importances
+``` 
+
+![image](https://github.com/LeThiKhanhHien/Notebooks/assets/56401620/dd66b839-b6f5-41a5-a40e-23bb1365f4fb)
+
+## Explore some AD models for fraud credit card detection task 
+
+We will try the following AD models 
+- The usual logistic regression model 
+- Decision Tree Classifier
+- Isolation Forest
+- Empirical Cumulative Distribution-based Outlier Detection
+
+```python
+scaler = StandardScaler()
+
+logistic_regression = LogisticRegression()
+dt_classifier = DecisionTreeClassifier()
+isolation_forest = IsolationForest()
+ecod = ECOD()
+
+# Create pipelines with StandardScaler and models
+pipeline_lr = Pipeline([('scaler', scaler), ('lr', logistic_regression)])
+pipeline_dt = Pipeline([('scaler', scaler), ('dt', dt_classifier)])
+pipeline_if = Pipeline([('scaler', scaler), ('if', isolation_forest)])
+pipeline_ecod = Pipeline([('scaler', scaler), ('ecod', ecod)])
+
+# Define multiple metrics
+scoring = {'accuracy': make_scorer(accuracy_score),
+           'precision': make_scorer(precision_score, average='macro'),
+           'recall': make_scorer(recall_score, average='macro'),
+           'f1-score': make_scorer(f1_score, average='macro'),
+           'auc_roc':make_scorer(roc_auc_score),
+           'auc_pr': make_scorer(average_precision_score)
+          }
+```
+
+## Evaluation ## 
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>logistic regression</th>
+      <th>decision tree</th>
+      <th>isolated forest</th>
+      <th>ECOD</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>fit_time</th>
+      <td>0.507102</td>
+      <td>15.311816</td>
+      <td>0.357572</td>
+      <td>2.354623</td>
+    </tr>
+    <tr>
+      <th>score_time</th>
+      <td>0.056995</td>
+      <td>0.051611</td>
+      <td>0.239926</td>
+      <td>2.824223</td>
+    </tr>
+    <tr>
+      <th>test_accuracy</th>
+      <td>0.999171</td>
+      <td>0.999185</td>
+      <td>0.037166</td>
+      <td>0.901347</td>
+    </tr>
+    <tr>
+      <th>test_precision</th>
+      <td>0.936744</td>
+      <td>0.879254</td>
+      <td>0.481258</td>
+      <td>0.507547</td>
+    </tr>
+    <tr>
+      <th>test_recall</th>
+      <td>0.804767</td>
+      <td>0.890021</td>
+      <td>0.100744</td>
+      <td>0.893781</td>
+    </tr>
+    <tr>
+      <th>test_f1-score</th>
+      <td>0.858345</td>
+      <td>0.884069</td>
+      <td>0.035869</td>
+      <td>0.489068</td>
+    </tr>
+    <tr>
+      <th>test_auc_roc</th>
+      <td>0.804767</td>
+      <td>0.890021</td>
+      <td>0.100744</td>
+      <td>0.893781</td>
+    </tr>
+    <tr>
+      <th>test_auc_pr</th>
+      <td>0.533359</td>
+      <td>0.592237</td>
+      <td>0.001494</td>
+      <td>0.013779</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+![image](https://github.com/LeThiKhanhHien/Notebooks/assets/56401620/74860edd-1c28-4986-a287-edfa600fcffc)
+
+## Deployment ## 
+
+We observe that decision tree has the slowest fitting time among the models but it has the best accuracy, recall, f1-score, auc-roc and auc-pr scores. Logistic regression is the second best in these scores, it has the best precision score, and much faster fitting time than the decision tree model. It seems logistic regression is a good supervised method for fraud card detection task. ECOD also works quite well. Note that ECOD is unsupervised method. 
 
 
