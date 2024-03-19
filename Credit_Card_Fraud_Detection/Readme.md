@@ -59,10 +59,187 @@ In fact, the feature importance depends much on the model we use.
 Let us first use Ordinary Least Squares (OLS) regression from the statsmodels library to fit a linear regression model and obtain p-values for each feature coefficient. These p-values indicate the statistical significance of each feature in predicting the target variable. **In the context of linear regression**, if the p-value is less than a chosen significance level (commonly 0.05), it suggests that the corresponding feature has a statistically significant relationship with the target variable; a high p-value suggests that the corresponding feature may not have a statistically significant relationship with the target variable. Features with low p-values are likely to be important predictors, while features with high p-values may be less relevant and could potentially be removed from the model. **Note that using p-value is sometimes controversial.**
 
 ```python
-#from statsmodels.regression.linear_model import OLS
-#model = OLS(y, X_scaled).fit()
-#pvalues = pd.DataFrame(model.pvalues)
-#pvalues.reset_index(inplace=True)
-#pvalues.rename(columns={0: "pvalue", "index": "feature"}, inplace=True)
-#pvalues.style.background_gradient(cmap='RdYlGn')
+from statsmodels.regression.linear_model import OLS
+model = OLS(y, X_scaled).fit()
+pvalues = pd.DataFrame(model.pvalues)
+pvalues.reset_index(inplace=True)
+pvalues.rename(columns={0: "pvalue", "index": "feature"}, inplace=True)
+pvalues.style.background_gradient(cmap='RdYlGn')
+```
+<style type="text/css">
+#T_20da2_row0_col1, #T_20da2_row1_col1, #T_20da2_row2_col1, #T_20da2_row3_col1, #T_20da2_row4_col1, #T_20da2_row5_col1, #T_20da2_row6_col1, #T_20da2_row7_col1, #T_20da2_row8_col1, #T_20da2_row9_col1, #T_20da2_row10_col1, #T_20da2_row11_col1, #T_20da2_row12_col1, #T_20da2_row13_col1, #T_20da2_row15_col1, #T_20da2_row16_col1, #T_20da2_row17_col1, #T_20da2_row18_col1, #T_20da2_row20_col1, #T_20da2_row23_col1, #T_20da2_row24_col1, #T_20da2_row25_col1, #T_20da2_row26_col1, #T_20da2_row27_col1, #T_20da2_row28_col1 {
+  background-color: #a50026;
+  color: #f1f1f1;
+}
+#T_20da2_row14_col1 {
+  background-color: #ab0626;
+  color: #f1f1f1;
+}
+#T_20da2_row19_col1, #T_20da2_row21_col1 {
+  background-color: #c01a27;
+  color: #f1f1f1;
+}
+#T_20da2_row22_col1 {
+  background-color: #006837;
+  color: #f1f1f1;
+}
+</style>
+<table id="T_20da2">
+  <thead>
+    <tr>
+      <th class="blank level0" >&nbsp;</th>
+      <th id="T_20da2_level0_col0" class="col_heading level0 col0" >feature</th>
+      <th id="T_20da2_level0_col1" class="col_heading level0 col1" >pvalue</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th id="T_20da2_level0_row0" class="row_heading level0 row0" >0</th>
+      <td id="T_20da2_row0_col0" class="data row0 col0" >x1</td>
+      <td id="T_20da2_row0_col1" class="data row0 col1" >0.000000</td>
+    </tr>
+    <tr>
+      <th id="T_20da2_level0_row1" class="row_heading level0 row1" >1</th>
+      <td id="T_20da2_row1_col0" class="data row1 col0" >x2</td>
+      <td id="T_20da2_row1_col1" class="data row1 col1" >0.000000</td>
+    </tr>
+    <tr>
+      <th id="T_20da2_level0_row2" class="row_heading level0 row2" >2</th>
+      <td id="T_20da2_row2_col0" class="data row2 col0" >x3</td>
+      <td id="T_20da2_row2_col1" class="data row2 col1" >0.000000</td>
+    </tr>
+    <tr>
+      <th id="T_20da2_level0_row3" class="row_heading level0 row3" >3</th>
+      <td id="T_20da2_row3_col0" class="data row3 col0" >x4</td>
+      <td id="T_20da2_row3_col1" class="data row3 col1" >0.000000</td>
+    </tr>
+    <tr>
+      <th id="T_20da2_level0_row4" class="row_heading level0 row4" >4</th>
+      <td id="T_20da2_row4_col0" class="data row4 col0" >x5</td>
+      <td id="T_20da2_row4_col1" class="data row4 col1" >0.000000</td>
+    </tr>
+    <tr>
+      <th id="T_20da2_level0_row5" class="row_heading level0 row5" >5</th>
+      <td id="T_20da2_row5_col0" class="data row5 col0" >x6</td>
+      <td id="T_20da2_row5_col1" class="data row5 col1" >0.000000</td>
+    </tr>
+    <tr>
+      <th id="T_20da2_level0_row6" class="row_heading level0 row6" >6</th>
+      <td id="T_20da2_row6_col0" class="data row6 col0" >x7</td>
+      <td id="T_20da2_row6_col1" class="data row6 col1" >0.000000</td>
+    </tr>
+    <tr>
+      <th id="T_20da2_level0_row7" class="row_heading level0 row7" >7</th>
+      <td id="T_20da2_row7_col0" class="data row7 col0" >x8</td>
+      <td id="T_20da2_row7_col1" class="data row7 col1" >0.000000</td>
+    </tr>
+    <tr>
+      <th id="T_20da2_level0_row8" class="row_heading level0 row8" >8</th>
+      <td id="T_20da2_row8_col0" class="data row8 col0" >x9</td>
+      <td id="T_20da2_row8_col1" class="data row8 col1" >0.000000</td>
+    </tr>
+    <tr>
+      <th id="T_20da2_level0_row9" class="row_heading level0 row9" >9</th>
+      <td id="T_20da2_row9_col0" class="data row9 col0" >x10</td>
+      <td id="T_20da2_row9_col1" class="data row9 col1" >0.000000</td>
+    </tr>
+    <tr>
+      <th id="T_20da2_level0_row10" class="row_heading level0 row10" >10</th>
+      <td id="T_20da2_row10_col0" class="data row10 col0" >x11</td>
+      <td id="T_20da2_row10_col1" class="data row10 col1" >0.000000</td>
+    </tr>
+    <tr>
+      <th id="T_20da2_level0_row11" class="row_heading level0 row11" >11</th>
+      <td id="T_20da2_row11_col0" class="data row11 col0" >x12</td>
+      <td id="T_20da2_row11_col1" class="data row11 col1" >0.000000</td>
+    </tr>
+    <tr>
+      <th id="T_20da2_level0_row12" class="row_heading level0 row12" >12</th>
+      <td id="T_20da2_row12_col0" class="data row12 col0" >x13</td>
+      <td id="T_20da2_row12_col1" class="data row12 col1" >0.000220</td>
+    </tr>
+    <tr>
+      <th id="T_20da2_level0_row13" class="row_heading level0 row13" >13</th>
+      <td id="T_20da2_row13_col0" class="data row13 col0" >x14</td>
+      <td id="T_20da2_row13_col1" class="data row13 col1" >0.000000</td>
+    </tr>
+    <tr>
+      <th id="T_20da2_level0_row14" class="row_heading level0 row14" >14</th>
+      <td id="T_20da2_row14_col0" class="data row14 col0" >x15</td>
+      <td id="T_20da2_row14_col1" class="data row14 col1" >0.001614</td>
+    </tr>
+    <tr>
+      <th id="T_20da2_level0_row15" class="row_heading level0 row15" >15</th>
+      <td id="T_20da2_row15_col0" class="data row15 col0" >x16</td>
+      <td id="T_20da2_row15_col1" class="data row15 col1" >0.000000</td>
+    </tr>
+    <tr>
+      <th id="T_20da2_level0_row16" class="row_heading level0 row16" >16</th>
+      <td id="T_20da2_row16_col0" class="data row16 col0" >x17</td>
+      <td id="T_20da2_row16_col1" class="data row16 col1" >0.000000</td>
+    </tr>
+    <tr>
+      <th id="T_20da2_level0_row17" class="row_heading level0 row17" >17</th>
+      <td id="T_20da2_row17_col0" class="data row17 col0" >x18</td>
+      <td id="T_20da2_row17_col1" class="data row17 col1" >0.000000</td>
+    </tr>
+    <tr>
+      <th id="T_20da2_level0_row18" class="row_heading level0 row18" >18</th>
+      <td id="T_20da2_row18_col0" class="data row18 col0" >x19</td>
+      <td id="T_20da2_row18_col1" class="data row18 col1" >0.000000</td>
+    </tr>
+    <tr>
+      <th id="T_20da2_level0_row19" class="row_heading level0 row19" >19</th>
+      <td id="T_20da2_row19_col0" class="data row19 col0" >x20</td>
+      <td id="T_20da2_row19_col1" class="data row19 col1" >0.006608</td>
+    </tr>
+    <tr>
+      <th id="T_20da2_level0_row20" class="row_heading level0 row20" >20</th>
+      <td id="T_20da2_row20_col0" class="data row20 col0" >x21</td>
+      <td id="T_20da2_row20_col1" class="data row20 col1" >0.000000</td>
+    </tr>
+    <tr>
+      <th id="T_20da2_level0_row21" class="row_heading level0 row21" >21</th>
+      <td id="T_20da2_row21_col0" class="data row21 col0" >x22</td>
+      <td id="T_20da2_row21_col1" class="data row21 col1" >0.006854</td>
+    </tr>
+    <tr>
+      <th id="T_20da2_level0_row22" class="row_heading level0 row22" >22</th>
+      <td id="T_20da2_row22_col0" class="data row22 col0" >x23</td>
+      <td id="T_20da2_row22_col1" class="data row22 col1" >0.119627</td>
+    </tr>
+    <tr>
+      <th id="T_20da2_level0_row23" class="row_heading level0 row23" >23</th>
+      <td id="T_20da2_row23_col0" class="data row23 col0" >x24</td>
+      <td id="T_20da2_row23_col1" class="data row23 col1" >0.000000</td>
+    </tr>
+    <tr>
+      <th id="T_20da2_level0_row24" class="row_heading level0 row24" >24</th>
+      <td id="T_20da2_row24_col0" class="data row24 col0" >x25</td>
+      <td id="T_20da2_row24_col1" class="data row24 col1" >0.000045</td>
+    </tr>
+    <tr>
+      <th id="T_20da2_level0_row25" class="row_heading level0 row25" >25</th>
+      <td id="T_20da2_row25_col0" class="data row25 col0" >x26</td>
+      <td id="T_20da2_row25_col1" class="data row25 col1" >0.000404</td>
+    </tr>
+    <tr>
+      <th id="T_20da2_level0_row26" class="row_heading level0 row26" >26</th>
+      <td id="T_20da2_row26_col0" class="data row26 col0" >x27</td>
+      <td id="T_20da2_row26_col1" class="data row26 col1" >0.000000</td>
+    </tr>
+    <tr>
+      <th id="T_20da2_level0_row27" class="row_heading level0 row27" >27</th>
+      <td id="T_20da2_row27_col0" class="data row27 col0" >x28</td>
+      <td id="T_20da2_row27_col1" class="data row27 col1" >0.000000</td>
+    </tr>
+    <tr>
+      <th id="T_20da2_level0_row28" class="row_heading level0 row28" >28</th>
+      <td id="T_20da2_row28_col0" class="data row28 col0" >x29</td>
+      <td id="T_20da2_row28_col1" class="data row28 col1" >0.000000</td>
+    </tr>
+  </tbody>
+</table>
+
+
 
