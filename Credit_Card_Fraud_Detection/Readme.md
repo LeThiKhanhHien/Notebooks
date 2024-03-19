@@ -274,20 +274,8 @@ scoring = {'accuracy': make_scorer(accuracy_score),
 
 ## Evaluation ## 
 
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
+We perform 5-fold cross-validation for each model and compute the mean scores.
 
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -357,7 +345,6 @@ scoring = {'accuracy': make_scorer(accuracy_score),
     </tr>
   </tbody>
 </table>
-</div>
 
 ![image](https://github.com/LeThiKhanhHien/Notebooks/assets/56401620/74860edd-1c28-4986-a287-edfa600fcffc)
 
