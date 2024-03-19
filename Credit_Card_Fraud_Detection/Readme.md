@@ -52,7 +52,7 @@ $$F1 Score=2 \times \frac{Precision×Recall}{Precision+Recall}$$
 
 - **Area Under the Precision-Recall Curve (AUC-PR)**: Similar to AUC-ROC, AUC-PR summarizes the precision-recall curve's performance, particularly useful when dealing with imbalanced datasets.
 
-## Q2. Can we say somethings about the importance level of the features in the dataset?
+## Q2. Can we say somethings about the importance level of the features in the dataset? ##
 
 In fact, the feature importance depends much on the model we use. 
 
@@ -240,7 +240,7 @@ feature_importances
 
 ![image](https://github.com/LeThiKhanhHien/Notebooks/assets/56401620/dd66b839-b6f5-41a5-a40e-23bb1365f4fb)
 
-## Explore some AD models for fraud credit card detection task 
+## Q3. Explore some AD models for fraud credit card detection task and pick the good ones ## 
 
 We will try the following AD models 
 - The usual logistic regression model 
